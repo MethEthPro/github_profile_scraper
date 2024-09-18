@@ -11,6 +11,11 @@ from urllib3.util.retry import Retry
 import datetime
 
 
+# from selenium import webdriver
+# from selenium.webdriver.chrome.service import Service
+# service = Service(executable_path="chromedriver.exe")
+# driver = webdriver.Chrome(service=service)
+#
 
 CODE_FILE_EXTENSIONS = ['.py', '.js', '.java', '.cpp', '.html', '.css', '.rb', '.go', '.rs']
 EXCLUDE_EXTENSIONS = ['.json', '.ipynb', '.csv', '.md', '.txt']
@@ -458,8 +463,8 @@ def analyze_repository(username, repo_name, path=''):
 
 # link = "https://github.com/JaideepGuntupalli"
 
-link = input("Enter the profile link")
-github_token = "ENTER YOUR TOKEN"
+link = input("Enter the profile link\n")
+github_token = "YOUR_GITHUB_TOKEN"
 username = link.split('/')[-1]
 
 condition_rate(github_token)
