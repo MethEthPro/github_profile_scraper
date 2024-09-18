@@ -12,18 +12,10 @@ import datetime
 
 
 
-# from selenium import webdriver
-# from selenium.webdriver.chrome.service import Service
-# service = Service(executable_path="chromedriver.exe")
-# driver = webdriver.Chrome(service=service)
-#
-
 CODE_FILE_EXTENSIONS = ['.py', '.js', '.java', '.cpp', '.html', '.css', '.rb', '.go', '.rs']
 EXCLUDE_EXTENSIONS = ['.json', '.ipynb', '.csv', '.md', '.txt']
 MAX_FILE_SIZE = 1024 * 1024 * 3   # 3 MB
 
-
-# Setup retry strategy
 def requests_retry_session(retries=3, backoff_factor=0.3, status_forcelist=(500, 502, 503, 504)):
     session = requests.Session()
     retry = Retry(total=retries, read=retries, connect=retries, backoff_factor=backoff_factor, status_forcelist=status_forcelist)
@@ -38,7 +30,8 @@ def condition_rate(token):
     remaining = rate_limit_status['resources']['core']['remaining']
     limit = rate_limit_status['resources']['core']['limit']
 
-    if limit == remaining:
+    if limit > 1000:
+        print(f"REMAINING LIMIT {remaining}")
         repos = get_user_repos(username, github_token)
         if repos:
             i = 0
@@ -188,14 +181,12 @@ def commit_contributors_Count(username, repo_name):
 
     url = "https://github.com/"+username+"/"+repo_name
     doc = get_page(url)
-    # driver.get(url)
-    # body = soup(driver.page_source,"html.parser").body
     span1 = doc.find("span",attrs={"class":"fgColor-default"})
     span2 = doc.find("span", attrs={"class" : "Counter ml-1"})
     try :
         return [span1.get_text(), span2.get_text()]
     except AttributeError:
-        return [span1.get_text(), 1]
+        return [1, 1]
 
 
 #  /////////////////////////////////////                        FILE     HANDLING     //////////////////////////////
@@ -214,7 +205,6 @@ def get_repo_contents(username,repo_name,token, path=''):
 
 
 def count_lines_of_code(content):
-    # add more code logic for scoring the file here
     lines = content.split('\n')
     code_line_count = 0
     comment_line_count = 0
@@ -466,15 +456,10 @@ def analyze_repository(username, repo_name, path=''):
     return results
 
 
-link = "https://github.com/JaideepGuntupalli"
-github_token = "YOUR GITHUB TOKEN"
+# link = "https://github.com/JaideepGuntupalli"
+
+link = input("Enter the profile link")
+github_token = "ENTER YOUR TOKEN"
 username = link.split('/')[-1]
 
 condition_rate(github_token)
-
-
-
-
-
-
-
