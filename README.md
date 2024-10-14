@@ -13,6 +13,7 @@ A Python-based tool that scrapes GitHub profiles, retrieving detailed user infor
   - Programming languages used
 - **Follower/Following Data**: Retrieves and lists user followers and the people they follow.
 - **API Rate Limit Handling**: Includes retry logic for GitHub API requests to respect rate limits.
+- **SCORE CALCULATION**: In the end for each repo we try to give it a score depending on its complexities , lines of code, complex sections of code.
 
 ## Technologies Used
 
